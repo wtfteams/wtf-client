@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "wtf-clinet",
-    "slug": "wtf-clinet",
+    "name": "wtf-client",
+    "slug": "wtf-client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
