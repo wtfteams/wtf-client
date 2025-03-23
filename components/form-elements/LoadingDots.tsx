@@ -1,14 +1,12 @@
-import React from 'react';
-import { View, Animated, Easing } from 'react-native';
+import React from "react";
+import { View, Animated, Easing } from "react-native";
 
 export default function LoadingDots() {
-
   const dot1Opacity = new Animated.Value(0);
   const dot2Opacity = new Animated.Value(0);
   const dot3Opacity = new Animated.Value(0);
 
   const animateDots = () => {
-
     Animated.loop(
       Animated.stagger(200, [
         Animated.timing(dot1Opacity, {
@@ -50,26 +48,25 @@ export default function LoadingDots() {
       ])
     ).start();
   };
-  
+
   React.useEffect(() => {
     animateDots();
   }, []);
 
   return (
-    <View className="flex-row space-x-1">
+    <View className="flex-row gap-[3px]">
       <Animated.View
         style={{ opacity: dot1Opacity }}
-        className="w-2 h-2 bg-white rounded-full"
+        className="w-2 h-2 bg-fourth rounded-full"
       />
       <Animated.View
         style={{ opacity: dot2Opacity }}
-        className="w-2 h-2 bg-white rounded-full"
+        className="w-2 h-2 bg-fourth rounded-full"
       />
       <Animated.View
         style={{ opacity: dot3Opacity }}
-        className="w-2 h-2 bg-white rounded-full"
+        className="w-2 h-2 bg-fourth rounded-full"
       />
     </View>
   );
-};
-
+}

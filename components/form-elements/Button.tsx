@@ -27,7 +27,7 @@ export default function Button({
   endIcon,
   className = "",
   textClassName = "",
-  loading = true,
+  loading = false,
 }: Props) {
   return (
     <TouchableOpacity
@@ -53,7 +53,7 @@ export default function Button({
           )}
 
           {/* Button Text */}
-          <Text className={`text-base font-bold ${textColor} ${textClassName}`}>
+          <Text className={`text-base tracking-wider ${textColor} ${textClassName}`}>
             {text}
           </Text>
 
