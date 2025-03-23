@@ -11,7 +11,7 @@ module.exports = {
         primary: '#192230',
         secondary: '#ffcd00', 
         tertiary: '#2c2f38', 
-        fourth: '#2c2f38', 
+        fourth: '#3d474e', 
       },
       textColor: {
         textWhite: '#FFFFFF', 

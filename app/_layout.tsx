@@ -34,9 +34,9 @@ export default function RootLayout() {
   }
 
   return (
-    <View className="flex-1 bg-[#192230]">
-      <SafeAreaView/>
-      <Stack screenOptions={{ headerShown: false }}>
+    <View className="flex-1 ">
+      <SafeAreaView className="bg-primary"/>
+      <Stack screenOptions={{ headerShown: false }} >
         <Stack.Screen name="index" />
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(main-tabs)" />

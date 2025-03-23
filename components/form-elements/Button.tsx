@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Text, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import LoadingDots from "./LoadingDots";
+import { Ionicons } from "@expo/vector-icons";
+import { Text, TouchableOpacity } from "react-native";
 
 interface Props {
   text: string;
