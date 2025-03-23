@@ -1,10 +1,17 @@
-import { View, Pressable, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
-import { Logo } from "@/components";
+import { Button, Logo } from "@/components";
+
+const genderOptions = [
+  { label: 'Female', value: 'female' },
+  { label: 'Male', value: 'male' },
+  { label: 'Other', value: 'other' },
+];
 
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedGender, setSelectedGender] = useState<string | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -18,18 +25,25 @@ const Welcome = () => {
   if (isLoggedIn) {
     return <Redirect href={"/(main-tabs)"} />;
   }
-  
+
   return (
-    <View className="flex-1 items-center justify-center bg-[#192230] space-y-8">
-      <Logo size={150} />
-      <Pressable 
-        className="bg-white px-6 py-3 rounded-full"
-        onPress={() => router.push("/(auth)")}
-      >
-        <Text className="text-[#192230] font-semibold text-lg">
-          Get Started
+    <View className="flex-1 px-4 bg-[#192230] justify-center gap-60">
+      <View className="gap-4 items-center justify-center">
+        <Logo />
+        <View>
+          <View>
+            <Text className="text-white font-black text-4xl text-center">CHANG OUT</Text>
+            <Text className="text-white font-black text-4xl text-center">WITH THE FRIENDS</Text>
+          </View>
+        </View>
+        <Text className="text-white font-semibold text-center text-lg">
+          Link up with the friends Experience fun and connection with your favorite app!
         </Text>
-      </Pressable>
+      </View>
+      <View className="gap-4">
+        <Button text="Register" onPress={() => router.push("/(auth)/register")} />
+        <Button text="Register" onPress={() => router.push("/(auth)/register")} />
+      </View>
     </View>
   );
 };
