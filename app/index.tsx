@@ -4,6 +4,7 @@ import { Redirect, router, SplashScreen } from "expo-router";
 import { Button, DatePicker, Logo } from "@/components";
 
 
+
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
