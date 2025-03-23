@@ -1,7 +1,7 @@
-import { View, Pressable, Text } from "react-native";
+import { View, Pressable, Text, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
-import { Logo } from "@/components";
+import { Button, Logo } from "@/components";
 
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,18 +18,18 @@ const Welcome = () => {
   if (isLoggedIn) {
     return <Redirect href={"/(main-tabs)"} />;
   }
-  
+
   return (
-    <View className="flex-1 items-center justify-center bg-[#192230] space-y-8">
+    <View className="flex-1 items-center justify-center bg-[#192230] space-y-8 px-5">
       <Logo size={150} />
-      <Pressable 
-        className="bg-white px-6 py-3 rounded-full"
-        onPress={() => router.push("/(auth)")}
-      >
-        <Text className="text-[#192230] font-semibold text-lg">
-          Get Started
-        </Text>
-      </Pressable>
+      <Button
+        text="Continue"
+        onPress={() => Alert.alert("Hello")}
+        buttonColor="bg-secondary"
+        textColor="text-black"
+        className="w-full py-6 rounded-[38px]"
+        textClassName="!font-semibold"
+      />
     </View>
   );
 };

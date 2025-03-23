@@ -1,5 +1,6 @@
 import { StyleSheet, TextInput, TextStyle, View, ViewStyle } from "react-native";
 
+
 const InputBox = ({
   value,
   setValue,
