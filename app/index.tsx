@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 import { View, Text, TouchableOpacity } from "react-native";
+=======
+import { View, Pressable, Text, Alert } from "react-native";
+>>>>>>> ba/button-01
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
-import { Logo } from "@/components";
+import { Button, Logo } from "@/components";
 
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
