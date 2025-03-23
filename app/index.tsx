@@ -1,10 +1,17 @@
-import { View, Pressable, Text, Alert } from "react-native";
+import { View, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Redirect, router, SplashScreen } from "expo-router";
+import { Redirect, SplashScreen } from "expo-router";
 import { Button, Logo } from "@/components";
+
+const genderOptions = [
+  { label: 'Female', value: 'female' },
+  { label: 'Male', value: 'male' },
+  { label: 'Other', value: 'other' },
+];
 
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedGender, setSelectedGender] = useState<string | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,7 +35,7 @@ const Welcome = () => {
         buttonColor="bg-secondary"
         textColor="text-black"
         className="w-full py-6 rounded-[38px]"
-        textClassName="!font-semibold"
+        textClassName="font-poppins-semibold"
       />
     </View>
   );

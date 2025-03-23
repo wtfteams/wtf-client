@@ -19,8 +19,10 @@ module.exports = {
         textWhiteShade: '#FFFFFF80',
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'], 
-        roboto: ['Roboto', 'sans-serif'], 
+        'poppins-regular': ['Poppins_400Regular'],
+        'poppins-medium': ['Poppins_500Medium'],
+        'poppins-semibold': ['Poppins_600SemiBold'],
+        'poppins-bold': ['Poppins_700Bold'],
       },
     },
   },
