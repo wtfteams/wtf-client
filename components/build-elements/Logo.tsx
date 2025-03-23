@@ -1,22 +1,10 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
 
-interface Props {
-  size?: number;
-}
+interface Props {}
 
-const Logo = ({ size = 120 }: Props) => {
-  return (
-    <View
-      className="items-center justify-center bg-white rounded-md"
-      style={{
-        width: size,
-        height: size,
-      }}
-    >
-      <Text className="text-2xl font-bold text-gray-900">Logo</Text>
-    </View>
-  );
+const Logo = ({}: Props) => {
+  return <View className="items-center justify-center bg-white rounded-full w-56 aspect-square"></View>;
 };
 
 export default Logo;
