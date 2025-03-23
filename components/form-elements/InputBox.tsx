@@ -1,8 +1,5 @@
 import { StyleSheet, TextInput, TextStyle, View, ViewStyle, Text, Pressable } from "react-native";
 
-
-
-
 const InputBox = ({
   value,
   onChangeText,
@@ -37,7 +34,7 @@ const InputBox = ({
           </Pressable>
         )}
       </View>
-      <Text className=" mt-0 text-base  ">{message}</Text>
+      <Text className=" mt-0 text-base text-white ">{message}</Text>
     </View>
   );
 };
