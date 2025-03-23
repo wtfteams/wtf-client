@@ -1,4 +1,4 @@
-import { View, Pressable, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
 import { Logo } from "@/components";
@@ -18,18 +18,29 @@ const Welcome = () => {
   if (isLoggedIn) {
     return <Redirect href={"/(main-tabs)"} />;
   }
-  
+
   return (
-    <View className="flex-1 items-center justify-center bg-[#192230] space-y-8">
-      <Logo size={150} />
-      <Pressable 
-        className="bg-white px-6 py-3 rounded-full"
-        onPress={() => router.push("/(auth)")}
-      >
-        <Text className="text-[#192230] font-semibold text-lg">
-          Get Started
+    <View className="flex-1 px-4 bg-[#192230] justify-center gap-60">
+      <View className="gap-4 items-center justify-center">
+        <Logo />
+        <View>
+          <View>
+            <Text className="text-white font-black text-4xl text-center">CHANG OUT</Text>
+            <Text className="text-white font-black text-4xl text-center">WITH THE FRIENDS</Text>
+          </View>
+        </View>
+        <Text className="text-white font-semibold text-center text-lg">
+          Link up with the friends Experience fun and connection with your favorite app!
         </Text>
-      </Pressable>
+      </View>
+      <View className="gap-4">
+        <TouchableOpacity onPress={()=> router.push("/(auth)/register")} className="w-full py-6 bg-yellow-400 rounded-full">
+          <Text>Register</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="w-full py-6 bg-yellow-400 rounded-full">
+          <Text>Login</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
