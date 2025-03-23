@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { View, Text, TouchableOpacity } from "react-native";
-=======
-import { View, Pressable, Text, Alert } from "react-native";
->>>>>>> ba/button-01
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
 import { Button, Logo } from "@/components";
@@ -38,12 +34,8 @@ const Welcome = () => {
         </Text>
       </View>
       <View className="gap-4">
-        <TouchableOpacity onPress={()=> router.push("/(auth)/register")} className="w-full py-6 bg-yellow-400 rounded-full">
-          <Text>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="w-full py-6 bg-yellow-400 rounded-full">
-          <Text>Login</Text>
-        </TouchableOpacity>
+        <Button text="Register" onPress={() => router.push("/(auth)/register")} />
+        <Button text="Register" onPress={() => router.push("/(auth)/register")} />
       </View>
     </View>
   );
