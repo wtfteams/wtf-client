@@ -8,7 +8,7 @@ const Welcome = () => {
   useEffect(() => {
     setTimeout(() => {
       // Token Check
-      setIsLoggedIn(true);
+      setIsLoggedIn(false);
       setTimeout(() => {
         SplashScreen.hideAsync();
       }, 500);
