@@ -15,7 +15,7 @@ const RegisterScreen = () => {
         </View>
       </View>
       <View className="">
-        <TouchableOpacity onPress={() => router.push("/(auth)/register")} className="w-full py-6 bg-yellow-400 rounded-full">
+        <TouchableOpacity onPress={() => router.push("/(auth)/otp")} className="w-full py-6 bg-yellow-400 rounded-full">
           <Text>Next</Text>
         </TouchableOpacity>
       </View>

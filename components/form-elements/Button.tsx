@@ -7,14 +7,14 @@ import LoadingDots from "./LoadingDots";
 interface Props {
   text: string;
   onPress: () => void;
-  buttonColor?: string;
-  textColor?: string;
-  strokeColor?: string;
+  buttonColor?: string | undefined;
+  textColor?: string | undefined;
+  strokeColor?: string | undefined;
   startIcon?: keyof typeof Ionicons.glyphMap;
   endIcon?: keyof typeof Ionicons.glyphMap;
-  className?: string;
-  textClassName?: string;
-  loading?: boolean;
+  className?: string | undefined;
+  textClassName?: string | undefined;
+  loading?: boolean | undefined;
 }
 
 export default function Button({

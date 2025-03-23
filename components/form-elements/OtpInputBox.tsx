@@ -1,4 +1,5 @@
 import React from "react"
+
 import { OtpInput } from "react-native-otp-entry"
 
 interface props {
@@ -18,14 +19,18 @@ export default function OtpInputBox({
 }: props) {
     return (
         <OtpInput
-            numberOfDigits={4}
-            focusColor={"#3D474E"}
-            type={"numeric"}
+            numberOfDigits={digits}
+            focusColor={focusColor}
+            type={type}
             autoFocus={true}
             blurOnFilled={true}
             onTextChange={(text) => onTextValue(text)}
             onFilled={(text) => onFilledValue(text)}
             theme={{
+                containerStyle: {
+                    display: "flex",
+                    gap: 16,
+                },
                 pinCodeContainerStyle: {
                     width: 70,
                     height: 70,
@@ -33,12 +38,19 @@ export default function OtpInputBox({
                     borderRadius: 10,
                     alignItems: 'center',
                     justifyContent: 'center',
+                    borderColor: "#3D474E"
                 },
                 pinCodeTextStyle: {
                     color: "#fff",
                     fontSize: 24,
                     textAlign: 'center',
+                    fontWeight: "400",
+                    letterSpacing: 5,
                 },
+                focusStickStyle: {
+                    backgroundColor: "#FFCD00", 
+                    width: 2, 
+                }
             }}
         />
     )
