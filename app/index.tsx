@@ -3,11 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
 import { Button, DatePicker, Logo } from "@/components";
 
-
-
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,32 +26,26 @@ const Welcome = () => {
         <Logo />
         <View className="gap-1">
           <View>
-            <Text className="text-white font-black text-4xl text-center tracking-wider font-poppins-bold">
-              CHANG OUT
+            <Text className="text-white font-black text-4xl text-center font-poppins-bold">
+              HANG OUT
             </Text>
-            <Text className="text-white font-black text-4xl text-center tracking-wider font-poppins-bold">
+            <Text className="text-white font-black text-4xl text-center font-poppins-bold">
               WITH THE FRIENDS
             </Text>
           </View>
           <View>
-            <Text className="text-white font-semibold text-center text-lg tracking-wider font-poppins-regular">
+            <Text className="text-white font-semibold text-center text-lg font-poppins-regular">
               Link up with the friends Experience fun and connection with your
               favorite app!
             </Text>
           </View>
         </View>
       </View>
-      <View>
-        <DatePicker
-          label="Date of birth"
-          value={selectedDate}
-          onChange={setSelectedDate}
-        />
-      </View>
+      <View></View>
       <View className="gap-5">
         <Button
           text="Register"
-          onPress={() => Alert.alert("Gender", "Please select your gender")}
+          onPress={() => router.push("/(auth)/create-account-screen")}
           buttonColor="bg-white rounded-[38px]"
           textColor="text-black font-poppins-semibold"
           textClassName="tracking-wider text-base font-poppins-bold"

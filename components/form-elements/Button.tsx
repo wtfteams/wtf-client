@@ -31,6 +31,7 @@ export default function Button({
 }: Props) {
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       onPress={onPress}
       disabled={loading}
       className={`
@@ -53,7 +54,9 @@ export default function Button({
           )}
 
           {/* Button Text */}
-          <Text className={`text-base tracking-wider ${textColor} ${textClassName}`}>
+          <Text
+            className={`text-base tracking-wider ${textColor} ${textClassName}`}
+          >
             {text}
           </Text>
 
