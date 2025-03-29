@@ -64,12 +64,13 @@ export default function InputBox({
         } ${error ? "border-red-500" : ""}`}
       >
         <TextInput
-          className="flex-1 py-4 px-4 text-textWhiteShade font-poppins-medium text-xl tracking-wide text-left"
+          className="flex-1 py-4 px-4 text-white font-poppins-medium tracking-wide text-left placeholder:text-sm placeholder:text-textWhiteShade"
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
+          selectionColor="#ffcd00"
           keyboardType={keyboardType}
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -77,7 +78,10 @@ export default function InputBox({
 
         {/* Clear Button (only visible when there's text) */}
         {value.length > 0 && (
-          <TouchableOpacity onPress={handleClear} className="mr-2 rounded-full bg-fourth w-7 h-7 flex items-center justify-center">
+          <TouchableOpacity
+            onPress={handleClear}
+            className="mr-2 rounded-full bg-fourth w-7 h-7 flex items-center justify-center"
+          >
             <MaterialIcons name="clear" size={15} color="#9CA3AF" />
           </TouchableOpacity>
         )}

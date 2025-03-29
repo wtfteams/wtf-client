@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView, Platform, Text, View, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
@@ -21,9 +22,9 @@ export default function CreateAccountScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View className={`flex-1 px-5 ${Platform.OS === 'ios' ? 'pt-4' : 'pt-6'}`}>
+        <View className={`flex-1 gap-5 px-5 ${Platform.OS === 'ios' ? 'pt-6' : 'pt-6'}`}>
           {/* Header */}
-          <View className="mb-7">
+          <View className="gap-5">
             <TouchableOpacity onPress={router.back}>
               <FeatherIcons 
                 icon="back-arrow" 
@@ -40,15 +41,17 @@ export default function CreateAccountScreen() {
             </Text>
           </View>
 
-          {/* Form */}
+         <View className="flex-1 gap-36">
+             {/* Form */}
           <View className="flex-1">
-            <InputBox
+            {/* <InputBox
               label="Display Name"
               placeholder="Enter your display name"
               value={displayname}
               onChangeText={setDisplayName}
               className={`mb-4`}
-            />
+              description="you can use emoji and special characters"
+            /> */}
             
             <InputBox
               label="User Name"
@@ -56,6 +59,7 @@ export default function CreateAccountScreen() {
               value={userName}
               onChangeText={setUserName}
               className={`mb-4`}
+              description="eg : user_007"
             />
             
             <InputBox
@@ -65,11 +69,12 @@ export default function CreateAccountScreen() {
               value={password}
               onChangeText={setPassword}
               className={`mb-4`}
+              description="password must be 8 characters and more"
             />
             
             <DatePicker
               label="Date of Birth"
-              value={selectedDate}
+              value={selectedDate || new Date()}
               onChange={setSelectedDate}
             />
             
@@ -84,7 +89,7 @@ export default function CreateAccountScreen() {
           </View>
 
           {/* Footer */}
-          <View className="mb-12">
+          <View className="mb-12 flex-1 gap-8">
             <Button
               text="Continue"
               buttonColor="bg-secondary"
@@ -95,14 +100,15 @@ export default function CreateAccountScreen() {
             />
             
             <Text 
-              className="text-white text-center mt-4"
+              className="text-white text-center  !text-xs"
               style={{ fontSize: moderateScale(12) }}
             >
               By continuing to create an account I agree to the {' '}
-              <Text className="text-secondary">Terms and Conditions and
+              <Text className="text-secondary text-xs">Terms and Conditions and
               Privacy Policy</Text> and that I am at least 18 years of age
             </Text>
           </View>
+         </View>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

@@ -1,13 +1,26 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal, ScrollView, Dimensions } from "react-native";
-import { format, getYear, getMonth, getDate } from "date-fns";
+import React, { useState, useRef, useEffect } from "react";
+
+import { format } from "date-fns";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  Platform,
+  Animated,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
   label?: string;
-  value: Date | null;
+  value: Date;
   onChange: (date: Date) => void;
   placeholder?: string;
+  maxDate?: Date;
+  minDate?: Date;
   error?: string;
 }
 
@@ -16,28 +29,50 @@ export default function DatePicker({
   value,
   onChange,
   placeholder = "Select date",
+  maxDate,
+  minDate,
   error = "",
 }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedYear, setSelectedYear] = useState(value ? getYear(value) : getYear(new Date()));
-  const [selectedMonth, setSelectedMonth] = useState(value ? getMonth(value) : getMonth(new Date()));
-  const [selectedDay, setSelectedDay] = useState(value ? getDate(value) : getDate(new Date()));
+  const [tempDate, setTempDate] = useState(value || new Date());
+  const screenHeight = Dimensions.get("window").height;
+  const modalHeight = screenHeight * 0.6;
+  const slideAnim = useRef(new Animated.Value(screenHeight)).current;
 
-  const years = Array.from({ length: 100 }, (_, i) => getYear(new Date()) - i);
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const openModal = () => {
+    slideAnim.setValue(screenHeight);
+    setModalVisible(true);
+  };
+
+  useEffect(() => {
+    if (modalVisible) {
+      Animated.spring(slideAnim, {
+        toValue: 0,
+        tension: 50,
+        friction: 9,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: screenHeight,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalVisible]);
+
+  const handleChange = (_: any, selectedDate?: Date) => {
+    if (selectedDate) {
+      setTempDate(selectedDate);
+    }
+  };
 
   const handleConfirm = () => {
-    const newDate = new Date(selectedYear, selectedMonth, selectedDay);
-    onChange(newDate);
+    onChange(tempDate);
     setModalVisible(false);
   };
 
-  const screenHeight = Dimensions.get('window').height;
-  const modalHeight = screenHeight * 0.6; // 60% of screen height
+  const formattedDate = value ? format(value, "MMM dd, yyyy") : "";
 
   return (
     <View className="w-full mb-5">
@@ -46,7 +81,7 @@ export default function DatePicker({
       </Text>
 
       <TouchableOpacity
-        onPress={() => setModalVisible(true)}
+        onPress={openModal}
         activeOpacity={0.8}
         className={`
           bg-tertiary rounded-[10px] py-4 px-4
@@ -57,10 +92,10 @@ export default function DatePicker({
         <Text
           className={`
             font-poppins-medium text-base tracking-wide
-            ${value ? "text-textWhite" : "text-textWhiteShade"}
+            ${value ? "text-white text-sm" : "text-textWhiteShade text-sm"}
           `}
         >
-          {value ? format(value, "MM/dd/yyyy") : placeholder}
+          {formattedDate || placeholder}
         </Text>
         <Ionicons name="chevron-down" size={20} color="#FFFFFF80" />
       </TouchableOpacity>
@@ -74,15 +109,18 @@ export default function DatePicker({
       <Modal
         visible={modalVisible}
         transparent={true}
-        animationType="fade"
+        animationType="none"
         onRequestClose={() => setModalVisible(false)}
       >
         <View className="flex-1 justify-end bg-black/50">
-          <View 
+          <Animated.View
             className="bg-tertiary rounded-t-[20px] p-5"
-            style={{ maxHeight: modalHeight }}
+            style={{
+              maxHeight: modalHeight,
+              transform: [{ translateY: slideAnim }],
+            }}
           >
-            <View className="flex-row justify-between items-center mb-4">
+            <View className="flex-row justify-between items-center mb-5">
               <Text className="text-white font-poppins-semibold text-lg">
                 Select {label}
               </Text>
@@ -90,70 +128,31 @@ export default function DatePicker({
                 <Ionicons name="close" size={24} color="white" />
               </TouchableOpacity>
             </View>
-            
-            <View className="flex-row mb-4">
-              <View className="flex-1 mr-2">
-                <Text className="text-white font-poppins-medium mb-2">Month</Text>
-                <ScrollView className="bg-fourth/30 rounded-lg p-2" style={{ height: modalHeight * 0.4 }}>
-                  {months.map((month, index) => (
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => setSelectedMonth(index)}
-                      className={`
-                        py-3 border-b border-fourth
-                        ${selectedMonth === index ? "bg-fourth/50" : ""}
-                      `}
-                    >
-                      <Text className="text-white font-poppins-medium text-base">
-                        {month}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </ScrollView>
-              </View>
-              
-              <View className="flex-1 mr-2">
-                <Text className="text-white font-poppins-medium mb-2">Day</Text>
-                <ScrollView className="bg-fourth/30 rounded-lg p-2" style={{ height: modalHeight * 0.4 }}>
-                  {days.map((day) => (
-                    <TouchableOpacity
-                      key={day}
-                      onPress={() => setSelectedDay(day)}
-                      className={`
-                        py-3 border-b border-fourth
-                        ${selectedDay === day ? "bg-fourth/50" : ""}
-                      `}
-                    >
-                      <Text className="text-white font-poppins-medium text-base">
-                        {day}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </ScrollView>
-              </View>
-              
-              <View className="flex-1">
-                <Text className="text-white font-poppins-medium mb-2">Year</Text>
-                <ScrollView className="bg-fourth/30 rounded-lg p-2" style={{ height: modalHeight * 0.4 }}>
-                  {years.map((year) => (
-                    <TouchableOpacity
-                      key={year}
-                      onPress={() => setSelectedYear(year)}
-                      className={`
-                        py-3 border-b border-fourth
-                        ${selectedYear === year ? "bg-fourth/50" : ""}
-                      `}
-                    >
-                      <Text className="text-white font-poppins-medium text-base">
-                        {year}
-                      </Text>
-                    </TouchableOpacity>
-                  ))}
-                </ScrollView>
-              </View>
+
+            <View 
+              className="rounded-lg mb-3 items-center justify-center"
+              style={{ height: modalHeight * 0.4 }}
+            >
+              <DateTimePicker
+                value={tempDate}
+                mode="date"
+                display={Platform.OS === "ios" ? "spinner" : "spinner"}
+                onChange={handleChange}
+                style={{ 
+                  backgroundColor: 'transparent',
+                  width: Platform.OS === 'ios' ? '100%' : 320,
+                  height: '100%',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                }}
+                themeVariant="dark"
+                maximumDate={maxDate}
+                minimumDate={minDate}
+                textColor="white"
+              />
             </View>
-            
-            <View className="flex-row justify-between mt-4">
+
+            <View className="flex-row justify-between my-8">
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setModalVisible(false)}
@@ -172,7 +171,7 @@ export default function DatePicker({
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </Animated.View>
         </View>
       </Modal>
     </View>

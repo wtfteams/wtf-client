@@ -1,5 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal, ScrollView, Dimensions } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  Dimensions,
+  Animated,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
@@ -21,8 +30,31 @@ export default function SelectBox({
   error = "",
 }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
-  const screenHeight = Dimensions.get('window').height;
-  const modalHeight = screenHeight * 0.6; // 60% of screen height
+  const screenHeight = Dimensions.get("window").height;
+  const modalHeight = screenHeight * 0.6;
+  const slideAnim = useRef(new Animated.Value(screenHeight)).current;
+
+  const openModal = () => {
+    slideAnim.setValue(screenHeight);
+    setModalVisible(true);
+  };
+
+  useEffect(() => {
+    if (modalVisible) {
+      Animated.spring(slideAnim, {
+        toValue: 0,
+        tension: 50,
+        friction: 9,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: screenHeight,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalVisible]);
 
   return (
     <View className="w-full mb-5">
@@ -31,7 +63,7 @@ export default function SelectBox({
       </Text>
 
       <TouchableOpacity
-        onPress={() => setModalVisible(true)}
+        onPress={openModal}
         activeOpacity={0.8}
         className={`
           bg-tertiary rounded-[10px] py-4 px-4
@@ -42,7 +74,7 @@ export default function SelectBox({
         <Text
           className={`
             font-poppins-medium text-base tracking-wide
-            ${value ? "text-textWhite" : "text-textWhiteShade"}
+            ${value ? "text-white text-sm" : "text-textWhiteShade text-sm"}
           `}
         >
           {value || placeholder}
@@ -59,15 +91,18 @@ export default function SelectBox({
       <Modal
         visible={modalVisible}
         transparent={true}
-        animationType="fade"
+        animationType="none"
         onRequestClose={() => setModalVisible(false)}
       >
         <View className="flex-1 justify-end bg-black/50">
-          <View 
+          <Animated.View
             className="bg-tertiary rounded-t-[20px] p-5"
-            style={{ maxHeight: modalHeight }}
+            style={{
+              maxHeight: modalHeight,
+              transform: [{ translateY: slideAnim }],
+            }}
           >
-            <View className="flex-row justify-between items-center mb-4">
+            <View className="flex-row justify-between items-center mb-5">
               <Text className="text-white font-poppins-semibold text-lg">
                 Select {label}
               </Text>
@@ -75,9 +110,9 @@ export default function SelectBox({
                 <Ionicons name="close" size={24} color="white" />
               </TouchableOpacity>
             </View>
-            
-            <ScrollView 
-              className="bg-fourth/30 rounded-lg p-2 mb-4"
+
+            <ScrollView
+              className="rounded w-full mb-2"
               style={{ height: modalHeight * 0.4 }}
             >
               {options.map((option, index) => (
@@ -88,18 +123,18 @@ export default function SelectBox({
                     setModalVisible(false);
                   }}
                   className={`
-                    py-4 border-b border-fourth
+                    py-7 border-b border-fourth 
                     ${value === option ? "bg-fourth/50" : ""}
                   `}
                 >
-                  <Text className="text-white font-poppins-medium text-base">
+                  <Text className="text-white font-poppins-medium text-base pl-3">
                     {option}
                   </Text>
                 </TouchableOpacity>
               ))}
             </ScrollView>
-            
-            <View className="flex-row justify-between mt-4">
+
+            <View className="flex-row justify-between my-8">
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setModalVisible(false)}
@@ -118,7 +153,7 @@ export default function SelectBox({
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </Animated.View>
         </View>
       </Modal>
     </View>
