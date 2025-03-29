@@ -34,9 +34,15 @@ export default function RootLayout() {
   }
 
   return (
-    <View className="flex-1 ">
+    <View className="flex-1">
       <SafeAreaView className="bg-primary"/>
-      <Stack screenOptions={{ headerShown: false }} >
+      <Stack 
+        screenOptions={{ 
+          headerShown: false,
+          contentStyle: { backgroundColor: 'transparent' },
+          animation: 'slide_from_right',
+        }} 
+      >
         <Stack.Screen name="index" />
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(main-tabs)" />

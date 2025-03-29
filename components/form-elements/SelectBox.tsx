@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Modal, ScrollView, Dimensions } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
   label: string;
@@ -8,99 +9,111 @@ interface Props {
   placeholder?: string;
   title?: string;
   options: string[];
-  error:string,
+  error?: string;
 }
 
-export default function GenderPicker({
-  label = "Gender",
+export default function SelectBox({
+  label,
   value,
   onChange,
-  placeholder = "Select gender",
+  placeholder = "Select option",
   options,
-  error,
+  error = "",
 }: Props) {
-  const [showPicker, setShowPicker] = useState(false);
-  const [tempGender, setTempGender] = useState(value || "");
-
-  const handlePress = () => {
-    setTempGender(value || "");
-    setShowPicker(true);
-  };
-
-  const handleCancel = () => {
-    setShowPicker(false);
-  };
-
-  const handleConfirm = () => {
-    onChange(tempGender);
-    setShowPicker(false);
-  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const screenHeight = Dimensions.get('window').height;
+  const modalHeight = screenHeight * 0.6; // 60% of screen height
 
   return (
-    <View className="w-full">
+    <View className="w-full mb-5">
       <Text className="text-textWhiteShade tracking-wide text-base mb-2 font-poppins-medium">
         {label}
       </Text>
 
       <TouchableOpacity
-        onPress={handlePress}
+        onPress={() => setModalVisible(true)}
         activeOpacity={0.8}
-        className={`bg-tertiary rounded-[10px] py-4 px-4 mb-5 border-2 ${error ? "border-red-500" : ""} border-fourth`}
+        className={`
+          bg-tertiary rounded-[10px] py-4 px-4
+          border-2 ${error ? "border-red-500" : "border-fourth"}
+          flex-row justify-between items-center
+        `}
       >
         <Text
-          className={`font-poppins-medium text-xl text-left ${
-            value
-              ? "text-textWhite tracking-wide"
-              : "text-textWhiteShade tracking-wide"
-          }`}
+          className={`
+            font-poppins-medium text-base tracking-wide
+            ${value ? "text-textWhite" : "text-textWhiteShade"}
+          `}
         >
           {value || placeholder}
         </Text>
+        <Ionicons name="chevron-down" size={20} color="#FFFFFF80" />
       </TouchableOpacity>
-      
-      <Modal visible={showPicker} transparent={true} animationType="fade">
-        <View className="flex-1 justify-center items-center bg-black/50">
-          <View className="bg-gray-800 rounded-[20px] p-6 w-10/12 max-w-md">
-            <Text className="text-white tracking-wide font-poppins-regular text-lg text-center mb-4">
-              Select Gender
-            </Text>
 
-            <View className="mb-6">
-              {options.map((gender) => (
+      {error && (
+        <Text className="text-red-500 text-xs font-poppins-regular ml-1 mt-1">
+          {error}
+        </Text>
+      )}
+
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View className="flex-1 justify-end bg-black/50">
+          <View 
+            className="bg-tertiary rounded-t-[20px] p-5"
+            style={{ maxHeight: modalHeight }}
+          >
+            <View className="flex-row justify-between items-center mb-4">
+              <Text className="text-white font-poppins-semibold text-lg">
+                Select {label}
+              </Text>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Ionicons name="close" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+            
+            <ScrollView 
+              className="bg-fourth/30 rounded-lg p-2 mb-4"
+              style={{ height: modalHeight * 0.4 }}
+            >
+              {options.map((option, index) => (
                 <TouchableOpacity
-                  key={gender}
-                  activeOpacity={0.7}
-                  onPress={() => setTempGender(gender)}
-                  className={`py-3 px-4 mb-2 rounded-[10px] ${
-                    tempGender === gender ? "bg-secondary" : "bg-gray-700"
-                  }`}
+                  key={index}
+                  onPress={() => {
+                    onChange(option);
+                    setModalVisible(false);
+                  }}
+                  className={`
+                    py-4 border-b border-fourth
+                    ${value === option ? "bg-fourth/50" : ""}
+                  `}
                 >
-                  <Text
-                    className={`font-poppins-medium text-center ${
-                      tempGender === gender ? "text-black" : "text-white"
-                    }`}
-                  >
-                    {gender}
+                  <Text className="text-white font-poppins-medium text-base">
+                    {option}
                   </Text>
                 </TouchableOpacity>
               ))}
-            </View>
-
-            <View className="flex-row justify-between mt-2">
+            </ScrollView>
+            
+            <View className="flex-row justify-between mt-4">
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={handleCancel}
+                onPress={() => setModalVisible(false)}
                 className="bg-white py-3 px-6 rounded-[38px] flex-1 mr-2"
               >
-                <Text className="font-poppins-medium tracking-wide text-center">Cancel</Text>
+                <Text className="font-poppins-medium text-center">Cancel</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={handleConfirm}
+                onPress={() => setModalVisible(false)}
                 className="bg-secondary py-3 px-6 rounded-[38px] flex-1 ml-2"
               >
-                <Text className="text-black tracking-wide font-poppins-medium text-center">
+                <Text className="text-black font-poppins-medium text-center">
                   Confirm
                 </Text>
               </TouchableOpacity>

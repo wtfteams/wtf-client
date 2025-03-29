@@ -2,7 +2,7 @@ import { View, Text, Button, SafeAreaView, } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router'
 import { useState } from 'react'
-import { InputBox } from '@/components'
+import { FeatherIcons, InputBox } from '@/components'
 
 
 const LoginScreen = () => {
@@ -25,16 +25,18 @@ const LoginScreen = () => {
 
       <InputBox
         label="Display name"
+        placeholder="Enter your display name"
         value={formData.name}
         onChangeText={(text) => handleChange("name", text)}
-        message="you can use emoji and special characters"
+        description="you can use emoji and special characters"
       />
 
       <InputBox
         label="Username"
+        placeholder='Enter your user name'
         value={formData.email}
         onChangeText={(text) => handleChange("email", text)}
-        message="eg:user_007"
+        description="eg:user_007"
       />
       <Button title="Register" onPress={() => router.push("/(main-tabs)")} />
     </View>

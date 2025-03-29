@@ -20,8 +20,8 @@ interface Props {
 export default function Button({
   text,
   onPress,
-  buttonColor = "bg-blue-500",
-  textColor = "text-white",
+  buttonColor = "bg-secondary",
+  textColor = "text-black",
   strokeColor,
   startIcon,
   endIcon,
@@ -35,7 +35,8 @@ export default function Button({
       onPress={onPress}
       disabled={loading}
       className={`
-        flex-row items-center justify-center py-6 px-4 rounded
+        flex-row items-center justify-center py-4 px-4
+        rounded-[38px] shadow-md
         ${buttonColor} ${strokeColor ? `border border-${strokeColor}` : ""}
         ${className}
       `}
@@ -44,7 +45,6 @@ export default function Button({
         <LoadingDots />
       ) : (
         <>
-          {/* Start Icon */}
           {startIcon && (
             <Ionicons
               name={startIcon}
@@ -53,14 +53,12 @@ export default function Button({
             />
           )}
 
-          {/* Button Text */}
           <Text
-            className={`text-base tracking-wider ${textColor} ${textClassName}`}
+            className={`text-base font-poppins-semibold tracking-wider ${textColor} ${textClassName}`}
           >
             {text}
           </Text>
 
-          {/* End Icon */}
           {endIcon && (
             <Ionicons
               name={endIcon}

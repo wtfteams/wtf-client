@@ -1,45 +1,94 @@
-import { StyleSheet, TextInput, TextStyle, View, ViewStyle, Text, Pressable } from "react-native";
+import React, { useState } from "react";
 
-const InputBox = ({
-  value,
-  onChangeText,
-  containerStyle,
-  inputBoxStyle,
-  label,
-  message
-}: {
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+
+interface Props {
+  label: string;
+  placeholder: string;
+  description?: string;
   value: string;
   onChangeText: (text: string) => void;
-  containerStyle?: ViewStyle;
-  inputBoxStyle?: TextStyle;
-  label: string;
-  message?: string;
-}) => {
+  secureTextEntry?: boolean;
+  keyboardType?: "default" | "numeric" | "email-address" | "phone-pad";
+  error?: string;
+  className?: string;
+  placeholderTextColor?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
+}
 
-  
+export default function InputBox({
+  label,
+  placeholder,
+  description,
+  value,
+  onChangeText,
+  secureTextEntry = false,
+  keyboardType = "default",
+  error,
+  className,
+  placeholderTextColor = "#9CA3AF",
+  onFocus,
+  onBlur,
+}: Props) {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleClear = () => {
+    onChangeText("");
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    onFocus?.();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur?.();
+  };
+
   return (
-    <View style={containerStyle} >
-      <Text className="text-xl mb-2 text-[#8C9198]">{label}</Text>
-      <View className="relative w-full">
+    <View className={`mb-4 w-full ${className}`}>
+      {/* Label */}
+      {label && (
+        <Text className="text-textWhiteShade tracking-wide text-base mb-2 font-poppins-medium">
+          {label}
+        </Text>
+      )}
+
+      {/* Input Container */}
+      <View
+        className={`flex-row bg-tertiary items-center border-2 rounded-[10px]  ${
+          isFocused ? "border-2 border-fourth" : "border-fourth"
+        } ${error ? "border-red-500" : ""}`}
+      >
         <TextInput
+          className="flex-1 py-4 px-4 text-textWhiteShade font-poppins-medium text-xl tracking-wide text-left"
+          placeholder={placeholder}
+          placeholderTextColor={placeholderTextColor}
           value={value}
           onChangeText={onChangeText}
-          className={`w-full bg-[#2C2F38] border-[#3D474E] border-[2px] text-xl text-[#FFCD00] rounded-lg px-5 py-3 h-fit ${inputBoxStyle}`} />
+          secureTextEntry={secureTextEntry}
+          keyboardType={keyboardType}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+
+        {/* Clear Button (only visible when there's text) */}
         {value.length > 0 && (
-          <Pressable
-            onPress={() => onChangeText("")}
-            className="absolute right-4 top-1/2 -translate-y-1/2">
-            <Text className="text-white text-lg"
-            >✕</Text>
-          </Pressable>
+          <TouchableOpacity onPress={handleClear} className="mr-2 rounded-full bg-fourth w-7 h-7 flex items-center justify-center">
+            <MaterialIcons name="clear" size={15} color="#9CA3AF" />
+          </TouchableOpacity>
         )}
       </View>
-      <Text className=" mt-0 text-base text-white ">{message}</Text>
+
+      {/* Description or Error Message */}
+      {error ? (
+        <Text className="text-red-500 text-sm mt-1">{error}</Text>
+      ) : description ? (
+        <Text className="text-gray-500 text-sm mt-1">{description}</Text>
+      ) : null}
     </View>
   );
-};
-
-export default InputBox;
-
-const styles = StyleSheet.create({
-});
+}
