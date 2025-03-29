@@ -72,7 +72,7 @@ export default function DatePicker({
     setModalVisible(false);
   };
 
-  const formattedDate = value ? format(value, "MMM dd, yyyy") : "";
+  const formattedDate = value ? format(value, "MMM / dd / yyyy") : "";
 
   return (
     <View className="w-full mb-5">
@@ -136,7 +136,7 @@ export default function DatePicker({
               <DateTimePicker
                 value={tempDate}
                 mode="date"
-                display={Platform.OS === "ios" ? "spinner" : "spinner"}
+                display="spinner"
                 onChange={handleChange}
                 style={{ 
                   backgroundColor: 'transparent',
