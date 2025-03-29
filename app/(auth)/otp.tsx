@@ -6,6 +6,11 @@ import { Button, Header, OtpInputBox } from '@/components'
 
 export default function OtpScreen() {
   const [otpValue, setOtpValue] = useState<string>("")
+  
+  const tabData = [
+    { value: "phone", name: "Phone" },
+    { value: "email", name: "Email" }
+  ]
   return (
     <View className='flex-1 bg-[#192230] px-5'>
       <Header />
