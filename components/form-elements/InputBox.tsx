@@ -4,8 +4,8 @@ import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 interface Props {
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   description?: string;
   value: string;
   onChangeText: (text: string) => void;
@@ -51,7 +51,7 @@ export default function InputBox({
   return (
     <View className={`mb-4 w-full ${className}`}>
       {/* Label */}
-      {label && (
+      {label !== "" && typeof label !== "undefined" && (
         <Text className="text-textWhiteShade tracking-wide text-base mb-2 font-poppins-medium">
           {label}
         </Text>
