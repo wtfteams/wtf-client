@@ -11,7 +11,7 @@ const RegisterScreen = () => {
       <View className="flex-1 gap-10">
         <Text className="font-poppins-semibold text-xl tracking-wider text-white">Choose which works you best.</Text>
         <View className="gap-5">
-            <InputBox value="" onChangeText={() => {}} placeholder="Email" />
+            {/* <InputBox value="" onChangeText={() => {}} placeholder="Email" /> */}
         </View>
       </View>
     </View>
