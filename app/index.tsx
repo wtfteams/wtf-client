@@ -45,14 +45,14 @@ const Welcome = () => {
       <View className="gap-5">
         <Button
           text="Register"
-          onPress={() => router.push("/(auth)/create-account-screen")}
+          onPress={() => router.push("/(auth)/register")}
           buttonColor="bg-white rounded-[38px]"
           textColor="text-black font-poppins-semibold"
           textClassName="tracking-wider text-base font-poppins-bold"
         />
         <Button
           text="Login"
-          onPress={() => router.push("/(auth)/register")}
+          onPress={() => router.push("/(auth)/login")}
           buttonColor="bg-secondary rounded-[38px]"
           textColor="text-black font-poppins-semibold"
           textClassName="tracking-wider text-base font-poppins-bold"

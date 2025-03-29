@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { View, Text } from 'react-native'
 
 type props = {
@@ -8,10 +8,13 @@ type props = {
 
 export default function TabBar({
     tabData,
+    tabValue,
+    setTabValue,
 }: {
-    tabData: props[]
+    tabData: props[];
+    tabValue: string;
+    setTabValue: React.Dispatch<React.SetStateAction<string>>;
 }) {
-    const [tabValue, setTabValue] = useState<string>(tabData.length > 0 ? tabData[0].value : "")
 
     return (
         <View className='w-full flex flex-row  rounded-[20px] p-1 bg-[#2C2F38]'>

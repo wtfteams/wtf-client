@@ -7,10 +7,6 @@ import { Button, Header, OtpInputBox } from '@/components'
 export default function OtpScreen() {
   const [otpValue, setOtpValue] = useState<string>("")
   
-  const tabData = [
-    { value: "phone", name: "Phone" },
-    { value: "email", name: "Email" }
-  ]
   return (
     <View className='flex-1 bg-[#192230] px-5'>
       <Header />
@@ -46,7 +42,7 @@ export default function OtpScreen() {
             text='Confirm'
             buttonColor='bg-[#FFCD00]'
             textColor='text-black'
-            onPress={() => router.push("/(auth)/register")}
+            onPress={() => router.push("/(auth)/create-account-screen")}
             className='rounded-[38px] w-1/2'
             textClassName='font-poppins-semibold text-base tracking-wider'
           />
