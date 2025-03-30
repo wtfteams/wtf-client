@@ -4,44 +4,36 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { SafeAreaView, Platform, Text, View, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { moderateScale, verticalScale } from "react-native-size-matters";
-import { Button, DatePicker, FeatherIcons, InputBox, SelectBox } from "@/components";
+import { Button, DatePicker, FeatherIcons, Header, InputBox, SelectBox } from "@/components";
 
 export default function CreateAccountScreen() {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [displayname, setDisplayName] = useState("");
+  // const [displayname, setDisplayName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   return (
-    <SafeAreaView className="flex-1 bg-primary">
+    <SafeAreaView className="flex-1 bg-primary ">
       <KeyboardAwareScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         extraHeight={verticalScale(100)}
         enableOnAndroid={true}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-      >
-        <View className={`flex-1 gap-5 px-5 ${Platform.OS === 'ios' ? 'pt-6' : 'pt-6'}`}>
+      >       
+        <View className={`flex-1 px-5 `}>
+        <Header/>
           {/* Header */}
           <View className="gap-5">
-            <TouchableOpacity onPress={router.back}>
-              <FeatherIcons 
-                icon="back-arrow" 
-                iconWidth={moderateScale(24)}
-                iconHeight={moderateScale(24)}
-                iconStrokeColor="white"
-              />
-            </TouchableOpacity>
             <Text 
-              className="text-white font-poppins-bold mt-2"
+              className="text-white font-poppins-regular mt-2"
               style={{ fontSize: moderateScale(24) }}
             >
               Create an account
             </Text>
           </View>
 
-         <View className="flex-1 gap-36">
+         <View className="flex-1 gap-36 mt-5">
              {/* Form */}
           <View className="flex-1">
             {/* <InputBox
