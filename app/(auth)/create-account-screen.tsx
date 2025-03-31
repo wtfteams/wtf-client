@@ -86,7 +86,7 @@ export default function CreateAccountScreen() {
               text="Continue"
               buttonColor="bg-secondary"
               textColor="text-black"
-              onPress={() => alert("hi")}
+              onPress={() => router.push("/(auth)/interest-screen")}
               className={`rounded-[38px]`}
               textClassName="font-poppins-semibold text-base tracking-wider"
             />

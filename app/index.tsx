@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
 import { Button, DatePicker, Logo } from "@/components";
+import InterestScreen from "./(auth)/interest-screen";
 
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +46,7 @@ const Welcome = () => {
       <View className="gap-5">
         <Button
           text="Register"
-          onPress={() => router.push("/(auth)/register")}
+          onPress={() => router.push("/(auth)/register-screen")}
           buttonColor="bg-white rounded-[38px]"
           textColor="text-black font-poppins-semibold"
           textClassName="tracking-wider text-base font-poppins-bold"
