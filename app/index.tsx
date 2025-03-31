@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
-import { Button, DatePicker, Logo } from "@/components";
-import InterestScreen from "./(auth)/interest-screen";
+import { Button, DatePicker } from "@/components";
+import LOGO from '@/assets/images/loogo2.png';
+
 
 const Welcome = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,7 +25,7 @@ const Welcome = () => {
   return (
     <View className="flex-1 px-5 bg-primary justify-around">
       <View className="gap-5 items-center justify-center">
-        <Logo />
+        <Image source={LOGO} className="w-36 h-36" />
         <View className="gap-1">
           <View>
             <Text className="text-white font-black text-4xl text-center font-poppins-bold">
@@ -49,14 +50,14 @@ const Welcome = () => {
           onPress={() => router.push("/(auth)/register-screen")}
           buttonColor="bg-white rounded-[38px]"
           textColor="text-black font-poppins-semibold"
-          textClassName="tracking-wider text-base font-poppins-bold"
+          textClassName="tracking-wider text-base font-poppins-semibold"
         />
         <Button
           text="Login"
           onPress={() => router.push("/(auth)/login")}
           buttonColor="bg-secondary rounded-[38px]"
           textColor="text-black font-poppins-semibold"
-          textClassName="tracking-wider text-base font-poppins-bold"
+          textClassName="tracking-wider text-base font-poppins-semibold"
         />
       </View>
     </View>

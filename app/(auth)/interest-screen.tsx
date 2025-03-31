@@ -1,16 +1,12 @@
-import React, { useState, } from "react";
+import React, { useState } from "react";
 
 import { Alert, useWindowDimensions } from "react-native";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
-import { Header } from "@/components";
+import { Button, Header } from "@/components";
 import { moderateScale, scale } from "react-native-size-matters";
+import { router } from "expo-router";
 
 interface Interest {
   id: string;
@@ -33,7 +29,7 @@ const MAX_SELECTIONS = 5;
 
 export default function InterestSelectionScreen({ navigation }: any) {
   const { width } = useWindowDimensions();
-  
+
   const [selectedInterests, setSelectedInterests] = useState<Interest[]>([]);
 
   // Function to toggle interest selection
@@ -69,22 +65,18 @@ export default function InterestSelectionScreen({ navigation }: any) {
   // Calculate circle size based on screen width
   const getCircleSize = () => {
     const circlesPerRow = 3;
-    const padding = scale(8); 
-    const availableWidth = width - scale(40); 
-    const size = Math.floor((availableWidth / circlesPerRow) - padding);
-    return Math.min(size, scale(90)); 
+    const padding = scale(8);
+    const availableWidth = width - scale(40);
+    const size = Math.floor(availableWidth / circlesPerRow - padding);
+    return Math.min(size, scale(90));
   };
-
-  const circleSize = getCircleSize();
 
   return (
     <SafeAreaView className="flex-1 bg-primary">
       <StatusBar style="light" />
-      <View className="flex-1 p-5">
+      <View className="flex-1 px-5">
         {/* Header with back button and skip */}
-        <Header
-        isSkip={true}
-        />
+        <Header isSkip={true} />
 
         {/* Main content - fixed structure */}
         <View className="flex-1">
@@ -102,7 +94,10 @@ export default function InterestSelectionScreen({ navigation }: any) {
           </View>
 
           {/* Selected interests chips - fixed height container */}
-          <View className="flex-row flex-wrap mb-8 items-center justify-center" style={{ minHeight: 90 }}>
+          <View
+            className="flex-row flex-wrap mb-8 items-center justify-center"
+            style={{ minHeight: 90 }}
+          >
             {selectedInterests.map((interest) => (
               <View key={interest.id} className="mr-2 mb-2">
                 <TouchableOpacity
@@ -119,51 +114,53 @@ export default function InterestSelectionScreen({ navigation }: any) {
           </View>
 
           {/* "Select your interests" section - fixed position */}
-          <Text className="text-white text-2xl font-semibold mb-4">
+          <Text className="text-white text-2xl font-poppins-regular mb-4">
             Select your interests
           </Text>
 
           {/* Interest selection circles - fixed grid layout */}
-            <View className="flex-row flex-wrap">
-              {availableInterests.map((interest) => (
-                <View key={interest.id} className="w-1/3 aspect-square p-2">
-                  <TouchableOpacity
-                    className={`w-24 h-24 rounded-full items-center justify-center ${
+          <View className="flex-row flex-wrap justify-center">
+            {availableInterests.map((interest) => (
+              <View key={interest.id} className="w-1/3 aspect-square p-2">
+                <TouchableOpacity
+                  className={`w-24 h-24 rounded-full items-center justify-center ${
+                    selectedInterests.some((item) => item.id === interest.id)
+                      ? "bg-secondary"
+                      : selectedInterests.length >= MAX_SELECTIONS
+                      ? "bg-fourth/50"
+                      : "bg-fourth"
+                  }`}
+                  onPress={() => toggleInterest(interest)}
+                  disabled={
+                    selectedInterests.length >= MAX_SELECTIONS &&
+                    !selectedInterests.some((item) => item.id === interest.id)
+                  }
+                >
+                  <Text
+                    className={`font-semibold text-center px-2 ${
                       selectedInterests.some((item) => item.id === interest.id)
-                        ? "bg-secondary"
-                        : selectedInterests.length >= MAX_SELECTIONS
-                        ? "bg-fourth/50"
-                        : "bg-fourth"
+                        ? "text-black"
+                        : "text-white"
                     }`}
-                    onPress={() => toggleInterest(interest)}
-                    disabled={selectedInterests.length >= MAX_SELECTIONS && 
-                      !selectedInterests.some((item) => item.id === interest.id)}
-                       >
-                    <Text
-                      className={`font-semibold text-center px-2 ${
-                        selectedInterests.some((item) => item.id === interest.id)
-                          ? "text-black"
-                          : "text-white"
-                      }`}
-                    >
-                      {interest.name}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </View>
+                  >
+                    {interest.name}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
         </View>
       </View>
       {/* Continue button - fixed at bottom */}
       <View className="px-6 pb-8">
-        <TouchableOpacity
-          className={`py-4 rounded-full w-full items-center bg-secondary`}
-          onPress={handleContinue}
-        >
-          <Text className="text-black text-lg font-bold">
-           Continue
-          </Text>
-        </TouchableOpacity>
+        <Button
+          text="Continue"
+          buttonColor="bg-secondary"
+          textColor="text-black"
+          onPress={() => router.push("/(auth)/friend-suggestion-screen")}
+          className={`rounded-[38px]`}
+          textClassName="font-poppins-semibold text-base tracking-wider"
+        />
       </View>
     </SafeAreaView>
   );
