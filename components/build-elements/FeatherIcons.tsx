@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, Line, Circle } from "react-native-svg";
 
 interface Props {
   icon?: string;
@@ -117,6 +117,75 @@ export default function FeatherIcons({
           >
             <Path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
             <Path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+          </Svg>
+        );
+
+      case "plus-icon":
+        return (
+          <Svg
+            width={iconWidth}
+            height={iconHeight}
+            viewBox="0 0 24 24"
+            fill={iconFillColor}
+            stroke={iconStrokeColor}
+            strokeWidth={iconStrokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <Line x1="4" y1="12" x2="20" y2="12" />
+            <Line x1="12" y1="4" x2="12" y2="20" />
+          </Svg>
+        );
+
+      case "camera-icon":
+        return (
+          <Svg
+            width={iconWidth}
+            height={iconHeight}
+            viewBox="0 0 24 24"
+            fill={iconFillColor}
+            stroke={iconStrokeColor}
+            strokeWidth={iconStrokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <Path d="M8.75 3.5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75z" />
+            <Path d="M9.958 5.25h4.083c1.37 0 2.454 0 3.32.088.889.09 1.63.28 2.278.713.518.346.964.792 1.31 1.31.433.648.622 1.39.713 2.277.088.867.088 1.952.088 3.322v.082c0 1.369 0 2.454-.088 3.32-.09.888-.28 1.629-.712 2.277a4.8 4.8 0 0 1-1.311 1.31c-.648.434-1.39.623-2.277.713-.866.088-1.951.088-3.32.088H9.958c-1.369 0-2.454 0-3.32-.088-.888-.09-1.629-.28-2.277-.712a4.8 4.8 0 0 1-1.31-1.311c-.434-.648-.623-1.39-.713-2.277-.088-.866-.088-1.951-.088-3.32v-.085c0-1.369 0-2.453.088-3.32.09-.887.28-1.628.712-2.276a4.8 4.8 0 0 1 1.31-1.31c.65-.433 1.39-.622 2.278-.713.866-.088 1.951-.088 3.32-.088z" />
+            <Path d="M12 10.75a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5z" />
+            <Path d="M8.25 13a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0z" />
+            <Path d="M16.75 10a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75z" />
+          </Svg>
+        );
+
+      case "gallery-icon":
+        return (
+          <Svg
+            viewBox="0 0 24 24"
+            fill="none"
+            width={iconWidth}
+            height={iconHeight}
+          >
+            <Path
+              d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"
+              stroke={iconStrokeColor}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <Circle
+              cx="16"
+              cy="8"
+              r="2"
+              stroke={iconStrokeColor}
+              strokeWidth={1.5}
+            />
+            <Path
+              d="M2 12.5l1.752-1.533a2.3 2.3 0 0 1 3.14.105l4.29 4.29a2 2 0 0 0 2.564.222l.299-.21a3 3 0 0 1 3.731.225L21 18.5"
+              stroke={iconStrokeColor}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </Svg>
         );
 
