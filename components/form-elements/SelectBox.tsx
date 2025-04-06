@@ -10,6 +10,7 @@ import {
   Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import FeatherIcons from "../build-elements/FeatherIcons";
 
 interface Props {
   label: string;
@@ -19,6 +20,12 @@ interface Props {
   title?: string;
   options: string[];
   error?: string;
+  endIcon?: string;
+  startIcon?: string;
+  iconWidth?: number;
+  iconHeight?: number;
+  iconStrokeColor?: string;
+  iconFillColor?: string;
 }
 
 export default function SelectBox({
@@ -28,6 +35,12 @@ export default function SelectBox({
   placeholder = "Select option",
   options,
   error = "",
+  endIcon,
+  startIcon,
+  iconWidth = 20,
+  iconHeight = 20,
+  iconStrokeColor = "white",
+  iconFillColor = "white",
 }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const screenHeight = Dimensions.get("window").height;
@@ -71,15 +84,40 @@ export default function SelectBox({
           flex-row justify-between items-center
         `}
       >
+        {startIcon && (
+          <View className="mr-3">
+            <FeatherIcons
+              icon={startIcon}
+              iconWidth={iconWidth}
+              iconHeight={iconHeight}
+              iconStrokeColor={iconStrokeColor}
+              iconFillColor={iconFillColor}
+
+            />
+          </View>
+        )}
+
         <Text
           className={`
-            font-poppins-medium text-base tracking-wide
+            font-poppins-medium text-base tracking-wide flex-1
             ${value ? "text-white text-sm" : "text-textWhiteShade text-sm"}
           `}
         >
           {value || placeholder}
         </Text>
-        <Ionicons name="chevron-down" size={20} color="#FFFFFF80" />
+        {endIcon ? (
+          <View className="ml-3">
+            <FeatherIcons
+              icon={endIcon}
+              iconWidth={iconWidth}
+              iconHeight={iconHeight}
+              iconStrokeColor={iconStrokeColor}
+              iconFillColor={iconFillColor}
+            />
+          </View>
+        ) : (
+          <Ionicons name="chevron-down" size={20} color="#FFFFFF80" />
+        )}
       </TouchableOpacity>
 
       {error && (

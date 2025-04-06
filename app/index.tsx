@@ -1,13 +1,12 @@
-import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Redirect, router, SplashScreen } from "expo-router";
-import { Button, DatePicker } from "@/components";
-import LOGO from '@/assets/images/loogo2.png';
+import { Button } from "@/components";
+import LOGO from "@/assets/images/loogo2.png";
 
 
-const Welcome = () => {
+export default function Welcome() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -64,4 +63,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+

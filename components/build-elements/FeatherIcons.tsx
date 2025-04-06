@@ -105,6 +105,23 @@ export default function FeatherIcons({
 
       case "settings":
         return (
+          <svg
+            width={iconWidth}
+            height={iconHeight}
+            viewBox="0 0 24 24"
+            fill={iconFillColor}
+            stroke={iconStrokeColor}
+            strokeWidth={iconStrokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+            <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+          </svg>
+        );
+
+      case "image-upload":
+        return (
           <Svg
             width={iconWidth}
             height={iconHeight}
@@ -115,8 +132,10 @@ export default function FeatherIcons({
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <Path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
-            <Path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+            <Path
+              d="M5 21q-.824 0-1.412-.587A1.93 1.93 0 0 1 3 19V5q0-.824.588-1.412A1.93 1.93 0 0 1 5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413A1.92 1.92 0 0 1 19 21zm1-4h12l-3.75-5-3 4L9 13z"
+              fill={iconStrokeColor}
+            />
           </Svg>
         );
 

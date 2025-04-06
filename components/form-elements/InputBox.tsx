@@ -16,6 +16,11 @@ interface Props {
   placeholderTextColor?: string;
   onFocus?: () => void;
   onBlur?: () => void;
+  numberOfLines?: number;
+  multiline?: boolean;
+  textAlignVertical?: "auto" | "top" | "bottom" | "center";
+  maxLength?: number;
+  height?: number;
 }
 
 export default function InputBox({
@@ -31,6 +36,11 @@ export default function InputBox({
   placeholderTextColor = "#9CA3AF",
   onFocus,
   onBlur,
+  numberOfLines,
+  multiline = false,
+  textAlignVertical = "center",
+  maxLength,
+  height,
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -62,6 +72,7 @@ export default function InputBox({
         className={`flex-row bg-tertiary items-center border-2 rounded-[10px]  ${
           isFocused ? "border-2 border-fourth" : "border-fourth"
         } ${error ? "border-red-500" : ""}`}
+        style={{ minHeight: multiline && height ? height : undefined }}
       >
         <TextInput
           className="flex-1 py-4 px-4 text-white font-poppins-medium tracking-wide text-left placeholder:text-sm placeholder:text-textWhiteShade"
@@ -70,17 +81,25 @@ export default function InputBox({
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}
+          numberOfLines={numberOfLines}
           selectionColor="#ffcd00"
           keyboardType={keyboardType}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          multiline={multiline}
+          textAlignVertical={multiline ? "top" : textAlignVertical}
+          maxLength={maxLength}
+          style={{ 
+            height: multiline && height ? height : undefined,
+            textAlignVertical: multiline ? "top" : textAlignVertical
+          }}
         />
 
         {/* Clear Button (only visible when there's text) */}
         {value.length > 0 && (
           <TouchableOpacity
             onPress={handleClear}
-            className="mr-2 rounded-full bg-fourth w-7 h-7 flex items-center justify-center"
+            className={`mr-2 rounded-full bg-fourth w-7 h-7 flex items-center justify-center  ${multiline ? "mb-auto mt-3" : ""}`}
           >
             <MaterialIcons name="clear" size={15} color="#9CA3AF" />
           </TouchableOpacity>
