@@ -116,7 +116,7 @@ export default function FriendsSuggestionScreen() {
     console.log("Selected friends:", selectedFriends);
 
     // Navigate back or to next screen
-    navigation.goBack();
+    router.push("/(events)/event-screen");
   };
 
   // Skip adding friends

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-
 import { router } from "expo-router";
+import React, { useState } from "react";
 import { View, Text } from "react-native";
+
 import { Button, Header, OtpInputBox } from "@/components";
 import { moderateScale } from "react-native-size-matters";
 

@@ -36,14 +36,18 @@ const AvatarScreen = () => {
             <View className="flex-1 gap-[68px]">
                 <Text className="font-poppins-semibold text-xl tracking-wider text-white">Choose profile picture</Text>
                 <View className="gap-9">
-                    <View style={{ backgroundColor: "#1B2A3A" }} className="w-[230px] h-[230px] rounded-full mx-auto border-2 border-dashed border-[#3D474E] relative">
-                            <Image
-                                source={image}
-                                className="w-full h-full rounded-full"
-                                resizeMode="contain"
-                            />
+                    <View style={{ backgroundColor: "#1B2A3A" }} className="w-[230px] h-[230px] rounded-full mx-auto border-2 border-dashed border-[#3D474E]">
+                        <View  className="relative overflow-hidden w-full h-full rounded-full">
+                            <View className={`w-full h-full rounded-full overflow-hidden ${image !== PROFILE && "absolute -bottom-8"}`}>
+                                <Image
+                                    source={image}
+                                    className="w-full h-full rounded-full object-contain"
+                                    resizeMode="contain"
+                                />
+                            </View>
+                        </View>
                         <UploadImageCropper setImage={setImage} showModal={showModal} setShowModal={setShowModal}>
-                            <TouchableOpacity onPress={() => setShowModal(true)} className="w-[50px] h-[50px] absolute top-5 right-0 bg-[#FFCD00] rounded-full flex justify-center items-center">
+                            <TouchableOpacity onPress={() => setShowModal(true)} className="w-[50px] h-[50px] absolute top-5 right-0 bg-[#FFCD00] rounded-full flex justify-center items-center overflow-auto">
                                 <FeatherIcons icon={"plus-icon"} iconWidth={12.52} iconHeight={12.52} iconStrokeColor={"#000000"} iconStrokeWidth={2} />
                             </TouchableOpacity>
                         </UploadImageCropper>

@@ -14,6 +14,9 @@ const AuthLayout = () => {
       <Stack.Screen name="register" />
       <Stack.Screen name="otp" />
       <Stack.Screen name="create-account-screen" />
+      <Stack.Screen name="avatar-screen" />
+      <Stack.Screen name="friend-suggestion-screen" />
+      <Stack.Screen name="interest-screen" />
     </Stack>
   );
 };
