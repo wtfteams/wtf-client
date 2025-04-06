@@ -238,7 +238,7 @@ export default function FriendsSuggestionScreen() {
           text="Add Friends"
           buttonColor="bg-secondary"
           textColor="text-black"
-          onPress={addSelectedFriends}
+          onPress={() =>router.push("/(auth)/create-event-screen-one")}
           className="rounded-[38px]"
           textClassName="font-poppins-semibold text-base tracking-wider"
         />
