@@ -4,7 +4,6 @@ import { Redirect, router, SplashScreen } from "expo-router";
 import { Button } from "@/components";
 import LOGO from "@/assets/images/loogo2.png";
 
-
 export default function Welcome() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -61,6 +60,4 @@ export default function Welcome() {
       </View>
     </View>
   );
-};
-
-
+}

@@ -4,4 +4,7 @@ export { default as OtpInputBox } from "./OtpInputBox"
 export { default as LoadingDots } from "./LoadingDots";
 export { default as DatePicker } from "./DatePicker";
 export { default as SelectBox } from "./SelectBox";
+export { default as SelectColor } from "./SelectColor";
+export { default as SelectRules } from "./SelectRules";
+export { default as SelectImage } from "./SelectImage";
  

@@ -5,12 +5,23 @@ import {
   Text,
   TouchableOpacity,
   Modal,
-  ScrollView,
   Dimensions,
   Animated,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import FeatherIcons from "../build-elements/FeatherIcons";
+
+const colorOptions = [
+  { name: "Yellow", value: "#FFCD00" },
+  { name: "Blue", value: "#3498db" },
+  { name: "Green", value: "#2ecc71" },
+  { name: "Red", value: "#e74c3c" },
+  { name: "Purple", value: "#9b59b6" },
+  { name: "Orange", value: "#e67e22" },
+  { name: "Pink", value: "#e84393" },
+  { name: "Teal", value: "#1abc9c" },
+  { name: "Gray", value: "#95a5a6" },
+];
 
 interface Props {
   label: string;
@@ -18,7 +29,7 @@ interface Props {
   onChange: (value: string) => void;
   placeholder?: string;
   title?: string;
-  options: string[];
+  options?: string[]; 
   error?: string;
   endIcon?: string;
   startIcon?: string;
@@ -28,13 +39,11 @@ interface Props {
   iconFillColor?: string;
 }
 
-export default function SelectBox({
+export default function SelectColor({
   label,
   value,
   onChange,
-  placeholder = "Select option",
-  title,
-  options,
+  placeholder = "Select color",
   error = "",
   endIcon,
   startIcon,
@@ -44,15 +53,10 @@ export default function SelectBox({
   iconFillColor = "white",
 }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(value);
+  const [selectedColor, setSelectedColor] = useState<string | null>(value);
   const screenHeight = Dimensions.get("window").height;
   const modalHeight = screenHeight * 0.6;
   const slideAnim = useRef(new Animated.Value(screenHeight)).current;
-
-  useEffect(() => {
-    // Update internal state when external value changes
-    setSelectedOption(value);
-  }, [value]);
 
   const openModal = () => {
     slideAnim.setValue(screenHeight);
@@ -76,22 +80,16 @@ export default function SelectBox({
     }
   }, [modalVisible]);
 
-  const handleOptionSelect = (option: string) => {
-    setSelectedOption(option);
-    // Don't close modal or call onChange yet
-  };
-
   const handleConfirm = () => {
-    if (selectedOption) {
-      onChange(selectedOption);
+    if (selectedColor) {
+      onChange(selectedColor);
     }
     setModalVisible(false);
   };
 
-  const handleCancel = () => {
-    // Reset to original value
-    setSelectedOption(value);
-    setModalVisible(false);
+  const getSelectedColorName = () => {
+    const found = colorOptions.find(color => color.value === value);
+    return found ? found.name : null;
   };
 
   return (
@@ -121,14 +119,23 @@ export default function SelectBox({
           </View>
         )}
 
-        <Text
-          className={`
-            font-poppins-medium text-base tracking-wide flex-1
-            ${value ? "text-white text-sm" : "text-textWhiteShade text-sm"}
-          `}
-        >
-          {value || placeholder}
-        </Text>
+        <View className="flex-row items-center flex-1">
+          {value && (
+            <View 
+              style={{ backgroundColor: value }} 
+              className="w-5 h-5 rounded-full mr-2" 
+            />
+          )}
+          <Text
+            className={`
+              font-poppins-medium text-base tracking-wide
+              ${value ? "text-white text-sm" : "text-textWhiteShade text-sm"}
+            `}
+          >
+            {value ? getSelectedColorName() : placeholder}
+          </Text>
+        </View>
+
         {endIcon ? (
           <View className="ml-3">
             <FeatherIcons
@@ -166,45 +173,43 @@ export default function SelectBox({
           >
             <View className="flex-row justify-between items-center mb-5">
               <Text className="text-white font-poppins-semibold text-lg">
-                {title || `Select ${label}`}
+                Select Color
               </Text>
-              <TouchableOpacity onPress={handleCancel}>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
                 <Ionicons name="close" size={24} color="white" />
               </TouchableOpacity>
             </View>
 
-            <ScrollView
-              className="rounded w-full mb-2"
-              style={{ height: modalHeight * 0.4 }}
-            >
-              {options.map((option, index) => (
+            <View className="flex-row flex-wrap justify-between mb-6">
+              {colorOptions.map((color, index) => (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => handleOptionSelect(option)}
-                  className={`
-                    py-7 border-b border-fourth 
-                    ${selectedOption === option ? "bg-secondary/80" : ""}
-                  `}
+                  onPress={() => setSelectedColor(color.value)}
+                  className="mb-4 items-center"
+                  style={{ width: '33%' }}
                 >
-                  <Text 
-                    className={`
-                      font-poppins-medium text-base pl-3
-                      ${selectedOption === option ? "text-black" : "text-white"}
-                    `}
-                  >
-                    {option}
+                  <View 
+                    style={{ 
+                      backgroundColor: color.value,
+                      borderWidth: selectedColor === color.value ? 3 : 0,
+                      borderColor: 'white'
+                    }} 
+                    className="w-16 h-16 rounded-full mb-2"
+                  />
+                  <Text className="text-white font-poppins-medium text-xs">
+                    {color.name}
                   </Text>
                 </TouchableOpacity>
               ))}
-            </ScrollView>
+            </View>
 
-            <View className="flex-row justify-between my-8">
+            <View className="flex-row justify-between my-4">
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={handleCancel}
-                className="bg-fourth py-3 px-6 rounded-[38px] flex-1 mr-2"
+                onPress={() => setModalVisible(false)}
+                className="bg-white py-3 px-6 rounded-[38px] flex-1 mr-2"
               >
-                <Text className="text-white font-poppins-medium text-center">Cancel</Text>
+                <Text className="font-poppins-medium text-center">Cancel</Text>
               </TouchableOpacity>
 
               <TouchableOpacity

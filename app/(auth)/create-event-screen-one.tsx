@@ -75,7 +75,7 @@ export default function CreateEventScreenOne() {
                 label="Location"
                 value={selectCategory}
                 onChange={setSelectCategory}
-                placeholder="Select Event category"
+                placeholder="Choose location"
                 options={["Travel", "Food", "movie"]}
                 error=""
               />

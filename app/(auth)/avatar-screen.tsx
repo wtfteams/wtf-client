@@ -37,8 +37,8 @@ const AvatarScreen = () => {
                 <Text className="font-poppins-semibold text-xl tracking-wider text-white">Choose profile picture</Text>
                 <View className="gap-9">
                     <View style={{ backgroundColor: "#1B2A3A" }} className="w-[230px] h-[230px] rounded-full mx-auto border-2 border-dashed border-[#3D474E]">
-                        <View  className="relative overflow-hidden w-full h-full rounded-full">
-                            <View className={`w-full h-full rounded-full overflow-hidden ${image !== PROFILE && "absolute -bottom-8"}`}>
+                        <View className="relative overflow-hidden w-full h-full rounded-full">
+                            <View className={`w-full h-full rounded-full overflow-hidden ${image !== PROFILE && "absolute top-0 left-0"}`}>
                                 <Image
                                     source={image}
                                     className="w-full h-full rounded-full object-contain"

@@ -4,14 +4,30 @@ import { router } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SafeAreaView, Text, View } from "react-native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
-import { Button, DatePicker, Header, InputBox, SelectBox } from "@/components";
+import {
+  Button,
+  Header,
+  SelectColor,
+  SelectImage,
+  SelectRules,
+} from "@/components";
 import TabBar from "@/components/form-elements/TabBar";
+import SelectSize from "@/components/form-elements/SelectSize";
 
 export default function CreateEventScreenTwo() {
-  const [titleName, setTitleName] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectCategory, setSelectCategory] = useState("");
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectSize, setSelectSize] = useState("");
+  const [selectColor, setSelectColor] = useState("");
+  const [eventRules, setEventRules] = useState<
+    Array<{ id: string; text: string }>
+  >([]);
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  const handleImageChange = (imageUri: string | string[]) => {
+    // If we receive an array, take the first image, otherwise use the string directly
+    const singleImageUri = Array.isArray(imageUri) ? imageUri[0] : imageUri;
+    setProfileImage(singleImageUri);
+    console.log("Selected image URI:", singleImageUri);
+  };
 
   const tabData = [
     { value: "Free", name: "Free" },
@@ -49,56 +65,54 @@ export default function CreateEventScreenTwo() {
                   tabValue={tabValue}
                 />
               </View>
-              <SelectBox
-                label="Upload Images"
-                value={selectCategory}
-                onChange={setSelectCategory}
-                placeholder="Select Event category"
-                options={["Travel", "Food", "movie"]}
+              <SelectImage
+                label="Profile Picture"
+                value={profileImage}
+                onChange={handleImageChange}
+                placeholder="Add event pictures"
+                title="Upload Profile Picture"
                 startIcon="image-upload"
-                iconHeight={24}
                 iconWidth={24}
-                // iconFillColor= "#2C2F38"
-                // iconStrokeColor= "#3D474E"
+                iconHeight={24}
+                iconStrokeColor="white"
+                iconFillColor="transparent"
                 error=""
               />
-              <SelectBox
+              <SelectSize
                 label="Pick Group Size"
-                value={selectCategory}
-                onChange={setSelectCategory}
-                placeholder="Select Event category"
+                value={selectSize}
+                onChange={setSelectSize}
+                placeholder="Select group size"
                 options={["Travel", "Food", "movie"]}
-                startIcon="image-upload"
+                startIcon="group-icon"
                 iconHeight={24}
                 iconWidth={24}
-                // iconFillColor= "#2C2F38"
-                // iconStrokeColor= "#3D474E"
+                iconStrokeColor="white"
+                iconFillColor=""
                 error=""
               />
-               <SelectBox
+              <SelectColor
                 label="Choose a Color for Your Event"
-                value={selectCategory}
-                onChange={setSelectCategory}
-                placeholder="Select Event category"
+                value={selectColor}
+                onChange={setSelectColor}
+                placeholder="Select Primary Color"
                 options={["Travel", "Food", "movie"]}
-                startIcon="image-upload"
+                startIcon="color-icon"
                 iconHeight={24}
                 iconWidth={24}
                 // iconFillColor= "#2C2F38"
                 // iconStrokeColor= "#3D474E"
                 error=""
               />
-               <SelectBox
+              <SelectRules
                 label="Add a Rule"
-                value={selectCategory}
-                onChange={setSelectCategory}
-                placeholder="Select Event category"
-                options={["Travel", "Food", "movie"]}
-                startIcon="image-upload"
+                value={eventRules}
+                onChange={setEventRules}
+                placeholder="Add event rules"
+                title="Event Rules"
+                startIcon="rules-icon"
                 iconHeight={24}
                 iconWidth={24}
-                // iconFillColor= "#2C2F38"
-                // iconStrokeColor= "#3D474E"
                 error=""
               />
             </View>
